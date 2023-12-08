@@ -4,13 +4,10 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
-  // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - front',
-    title: 'front',
+    titleTemplate: '%s - frontSoporte',
+    title: 'frontSoporte',
     htmlAttrs: {
       lang: 'en'
     },
@@ -31,6 +28,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    {src: '~/plugins/chart.js' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -44,42 +42,46 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
     'vue-sweetalert2/nuxt'
   ],
-  
- router:{
-  middleware: 'auth'
- },
 
- axios: {
-  baseURL: 'http://localhost:4000'
- },
- auth: {
-  strategies:{
-    local:{
-      token:{
-        property: 'token',
-        name: 'x-token',
-        type: '',
-        global: true,
-        maxAge: 1800
-      },
-      endpoints:{
-        login:{ url: '/api/login', method: 'post'},
-        logout: false,
-        user:{ url: '/api/usuarioApp/datos/user', method: 'get'}
+  router: {
+    middleware: 'auth'
+  },
+
+  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  axios: {
+    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
+    baseURL: 'http://localhost:4000',
+  },
+  auth:{
+    strategies:{
+      local: { 
+        token:{
+          property: 'token',
+          name:'x-token',
+          type:'',
+          global: true,
+          maxAge: 1800
+        },
+        endpoints: {
+          login: { url: '/api/login/', method: 'post'},
+          logout: false,
+          user: { url: '/api/usuarioApp/datos/user', method: 'get'}
+        }
       }
+    },
+    redirect: {
+      login: '/',
+      logout: '/',
+      home:'/dashboard'
     }
   },
-  redirect: {
-    login: '/',
-    logout: '/',
-    home: '/dashboard'
-  }
- },
 
+  
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -88,13 +90,13 @@ export default {
       dark: false,
       themes: {
         dark: {
-          primary: colors.yellow.accent4,
+          primary: colors.blue.darken2,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
+          success: colors.green.accent3
         }
       }
     }

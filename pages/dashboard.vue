@@ -1,13 +1,33 @@
 <template>
-<v-card>
-  <Dash/>
-</v-card>
+ <v-container>
+    <Barra />
+ </v-container>
 </template>
+
 <script>
-import Dash from '../components/dashboardComp.vue'
-export default{
+import Barra from '../components/graficas/barra.vue'
+export default {
+  name: 'FrontSoporteDashboard',
+
+  data() {
+    return {
+      
+    };
+  },
   components:{
-    Dash
-  }
-}
+    Barra
+  },
+
+  mounted() {
+    
+  },
+
+  methods: {
+    
+  },
+};
 </script>
+
+<style lang="scss" scoped>
+
+</style>
